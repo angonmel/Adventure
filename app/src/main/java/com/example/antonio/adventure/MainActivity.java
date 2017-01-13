@@ -15,10 +15,10 @@ import com.example.antonio.adventure.model.Room;
 public class MainActivity extends AppCompatActivity  {
     ImageButton helpButton;
     TextView mainTest;
-    ImageButton botonNorte;
-    ImageButton botonSur;
-    ImageButton botonEste;
-    ImageButton botonOeste;
+    ImageButton northButton;
+    ImageButton southButton;
+    ImageButton eastButton;
+    ImageButton westButton;
 
 
     @Override
@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        botonNorte = (ImageButton) findViewById(R.id.activity_main_north_button);
-        botonSur = (ImageButton) findViewById(R.id.activity_main_south_button_button);
-        botonEste = (ImageButton) findViewById(R.id.activity_main_east_button);
-        botonOeste = (ImageButton) findViewById(R.id.activity_main_west_button);
+        northButton = (ImageButton) findViewById(R.id.activity_main_north_button);
+        southButton = (ImageButton) findViewById(R.id.activity_main_south_button_button);
+        eastButton = (ImageButton) findViewById(R.id.activity_main_east_button);
+        westButton = (ImageButton) findViewById(R.id.activity_main_west_button);
         mainTest =(TextView) findViewById(R.id.activity_main_scene_text);
         helpButton = (ImageButton) findViewById(R.id.activity_main_help_button);
         helpButton.setOnClickListener(new View.OnClickListener(){
@@ -40,30 +40,44 @@ public class MainActivity extends AppCompatActivity  {
 
             }
         });
-        botonNorte.setOnClickListener(new View.OnClickListener() {
+        northButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                currentRoom = currentRoom.getRoomNorth();
+                repainScene();
+
             }
         });
-        //botonSur.OnClickListener(new View.OnClickListener(){
-            //@Override
-            //public void onClick(View v){
-        //finish();
-        //}
-        //});
-        //botonEste.OnClickListener(new View.OnClickListener(){
-        // @Override
-        //  public void onClick(View v){
-        //      finish();
-        //  }
-        //});
-        initGame();
-        mainTest.setText(currentRoom.getDescription());
+
+        southButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentRoom = currentRoom.getRoomSouth();
+                repainScene();
+            }
+        });
+
+        westButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentRoom = currentRoom.getRoomWest();
+                repainScene();
+            }
+        });
+            eastButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentRoom = currentRoom.getRoomEast();
+                    repainScene();
+                }
+            });
+
 
 
 
     }
+
+
 
     Inventory inventory = new Inventory();
     Room currentRoom;
@@ -80,6 +94,32 @@ public class MainActivity extends AppCompatActivity  {
         currentRoom = MapGenerator.initialRoom;
 
 }
+        private void repainScene(){
+            mainText.setText(currentRoom.getDescription());
+            mainImage.setImageResource(currentRomm.getImage());
+
+            if(currentRoom.getRoomNorth()!=null){
+        northButton.setVisibility(View.VISIBLE);
+        }else{
+        northButton.setVisibility(View.INVISIBLE);
+        }
+        if(currentRoom.getRoomSouth()!=null){
+        southButton.setVisibility(View.VISIBLE);
+        }else{
+        southButton.setVisibility(View.INVISIBLE);
+        }
+        if(currentRoom.getRoomWest()!= null){
+        westButton.setVisibility(View.VISIBLE);
+        }else{
+        westButton.setVisibility(View.INVISIBLE);
+
+        }
+        if(currentRoom.getRoomEast()!=null){
+        eastButton.setVisibility(View.VISIBLE);
+        }else{
+        eastButton.setVisibility(View.INVISIBLE);
+        }
+
 }
 
 
